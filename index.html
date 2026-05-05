@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RPG Script Compiler — Portafolio Técnico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-logo">
+    <span class="dot"></span>
+    RPG::Compiler
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#lenguaje">Lenguaje</a></li>
+    <li><a href="#lexico">Léxico</a></li>
+    <li><a href="#sintactico">Sintáctico</a></li>
+    <li><a href="#semantico">Semántico</a></li>
+    <li><a href="#simbolos">Símbolos</a></li>
+    <li><a href="#resultado">Resultado</a></li>
+    <li><a href="#generacion">Generación</a></li>
+    <li><a href="#repo">Repo</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<section id="hero" style="max-width:none;">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Proyecto Final — Compiladores</div>
+    <h1 class="hero-title">RPG Script<br><span class="grad">Compiler</span></h1>
+    <p class="hero-sub">Compilador completo para scripts de videojuegos de rol con análisis léxico, sintáctico y semántico.</p>
+    <div class="hero-meta">
+      <div class="meta-card">
+        <div class="label">Integrantes</div>
+        <div class="value">María Leonor Rosales Gutiérrez</div>
+        <div class="value">Bernardo Manuel Velásquez Villagran</div>
+        <div class="value">Diego José Alegría Orós</div>
+      </div>
+      <div class="meta-card">
+        <div class="label">Curso</div>
+        <div class="value">Compiladores</div>
+      </div>
+      <div class="meta-card">
+        <div class="label">Docente</div>
+        <div class="value" contenteditable="true" title="Clic para editar">Jorge Tello</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+    </svg>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Intro-->
+<section id="intro">
+  <div class="section-tag">01 — Introducción</div>
+  <h2 class="section-title">¿Qué es el RPG Script Compiler?</h2>
+  <p class="section-desc">
+    Un compilador desarrollado en Python para validar y procesar scripts de videojuegos de rol. Permite definir personajes, habilidades y estados de forma estructurada, garantizando la corrección del código antes de su ejecución.
+  </p>
+
+  <div class="pipeline reveal">
+    <div class="pipeline-step">
+      <div class="ps-num">Entrada</div>
+      <div class="ps-name">Script RPG</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="ps-num">Fase 1</div>
+      <div class="ps-name">Léxico</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="ps-num">Fase 2</div>
+      <div class="ps-name">Sintáctico</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="ps-num">Fase 3</div>
+      <div class="ps-name">Semántico</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="ps-num">Fase 4</div>
+      <div class="ps-name">Tabla Símbolos</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="ps-num">Salida</div>
+      <div class="ps-name">Resultado</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card reveal">
+      <div class="card-title">Entidades del Lenguaje</div>
+      <div class="card-body">
+        <div class="feature-list">
+          <div class="feature-item"><span class="fi-dot"></span> Personajes con atributos HP, MP, XP</div>
+          <div class="feature-item"><span class="fi-dot"></span> Habilidades con valores de daño</div>
+          <div class="feature-item"><span class="fi-dot"></span> Estados con efectos descriptivos</div>
+        </div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <div class="card-title">Fases del Compilador</div>
+      <div class="card-body">
+        <div class="feature-list">
+          <div class="feature-item"><span class="fi-dot"></span> Análisis léxico — tokenización</div>
+          <div class="feature-item"><span class="fi-dot"></span> Análisis sintáctico — estructura</div>
+          <div class="feature-item"><span class="fi-dot"></span> Análisis semántico — lógica</div>
+        </div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <div class="card-title">Tecnología</div>
+      <div class="card-body">
+        <div class="feature-list">
+          <div class="feature-item"><span class="fi-dot"></span> Desarrollado en Python 3</div>
+          <div class="feature-item"><span class="fi-dot"></span> Sin dependencias externas</div>
+          <div class="feature-item"><span class="fi-dot"></span> Orientado a scripts RPG</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Lenguaje -->
+<section id="lenguaje">
+  <div class="section-tag">02 — Descripción del Lenguaje</div>
+  <h2 class="section-title">Sintaxis del Lenguaje RPG</h2>
+  <p class="section-desc">
+    El lenguaje usa bloques delimitados por llaves con declaraciones tipo clave-valor. Cada entidad se define con una palabra reservada, un identificador y sus propiedades.
+  </p>
+
+  <div class="grid-2">
+    <div class="code-block reveal">
+      <span class="cb-label">ejemplo.rpg</span>
+<span class="kw">personaje</span> <span class="id">Heroe</span> <span class="sym">{</span>
+    <span class="kw">HP</span> <span class="sym">=</span> <span class="num">100</span><span class="sym">;</span>
+    <span class="kw">MP</span> <span class="sym">=</span> <span class="num">50</span><span class="sym">;</span>
+<span class="sym">}</span>
+
+<span class="kw">habilidad</span> <span class="id">Golpe</span> <span class="sym">{</span>
+    <span class="kw">daño</span> <span class="sym">=</span> <span class="num">25</span><span class="sym">;</span>
+<span class="sym">}</span>
+
+<span class="kw">estado</span> <span class="id">Quemado</span> <span class="sym">{</span>
+    <span class="kw">efecto</span> <span class="sym">=</span> <span class="str">"pierde vida"</span><span class="sym">;</span>
+<span class="sym">}</span>
+    </div>
+
+    <div class="grid-2" style="grid-template-columns:1fr; gap:.75rem;">
+      <div class="card reveal">
+        <div class="card-title">Bloques { }</div>
+        <div class="card-body">Cada entidad se delimita con llaves <code style="color:var(--accent)">{ }</code>, definiendo su contexto y sus propiedades internas.</div>
+      </div>
+      <div class="card reveal">
+        <div class="card-title">Asignaciones con =</div>
+        <div class="card-body">Las propiedades se asignan con <code style="color:var(--accent)">=</code> seguido de un valor numérico o cadena.</div>
+      </div>
+      <div class="card reveal">
+        <div class="card-title">Punto y coma obligatorio</div>
+        <div class="card-body">Cada declaración termina con <code style="color:var(--accent)">;</code> para marcar el fin de instrucción de forma explícita.</div>
+      </div>
+      <div class="card reveal">
+        <div class="card-title">Tipos de datos</div>
+        <div class="card-body">
+          <span style="color:var(--yellow)">Enteros</span> (100, 25) ·
+          <span style="color:var(--purple)">Cadenas</span> ("pierde vida") ·
+          <span style="color:var(--green)">Identificadores</span> (Heroe)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Fase 1: Léxico -->
+<section id="lexico">
+  <div class="phase-header reveal">
+    <span class="phase-num">FASE 01</span>
+    <div class="phase-line"></div>
+  </div>
+  <div class="section-tag">03 — Analizador Léxico</div>
+  <h2 class="section-title">Tokenización del Script</h2>
+  <p class="section-desc">
+    Recorre el código fuente carácter por carácter y lo transforma en una secuencia de tokens. Cada token representa una unidad mínima de significado.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:1.5rem;">
+    <div class="card reveal">
+      <div class="card-title" style="margin-bottom:.9rem;">Categorías de Tokens</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Token</th><th>Ejemplos</th></tr></thead>
+          <tbody>
+            <tr><td><span class="kw">PALABRA_RESERVADA</span></td><td>personaje, habilidad, estado, HP, MP, XP</td></tr>
+            <tr><td><span class="id">IDENTIFICADOR</span></td><td>Heroe, Golpe, Quemado</td></tr>
+            <tr><td><span class="num">NUMERO</span></td><td>100, 50, 25</td></tr>
+            <tr><td><span class="str">CADENA</span></td><td>"pierde vida"</td></tr>
+            <tr><td><span class="sym">SIMBOLO</span></td><td>{ } = ;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <div class="card reveal" style="margin-bottom:.9rem;">
+        <div class="card-title" style="margin-bottom:.75rem;">Entrada</div>
+        <div class="code-block" style="margin:0;"><span class="kw">HP</span> <span class="sym">=</span> <span class="num">100</span><span class="sym">;</span></div>
+      </div>
+      <div class="card reveal">
+        <div class="card-title" style="margin-bottom:.75rem;">Tokens generados</div>
+        <div class="token-grid">
+          <div class="token"><span class="t-type">PALABRA_RESERVADA</span><span class="t-val">HP</span></div>
+          <div class="token"><span class="t-type">SIMBOLO</span><span class="t-val">=</span></div>
+          <div class="token"><span class="t-type">NUMERO</span><span class="t-val">100</span></div>
+          <div class="token"><span class="t-type">SIMBOLO</span><span class="t-val">;</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card reveal">
+    <div class="card-title" style="margin-bottom:.9rem;">Tabla de Tokens — Ejemplo Completo</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Tipo</th><th>Valor</th><th>Línea</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><span class="kw">PALABRA_RESERVADA</span></td><td>personaje</td><td>1</td></tr>
+          <tr><td>2</td><td><span class="id">IDENTIFICADOR</span></td><td>Heroe</td><td>1</td></tr>
+          <tr><td>3</td><td><span class="sym">SIMBOLO</span></td><td>{</td><td>1</td></tr>
+          <tr><td>4</td><td><span class="kw">PALABRA_RESERVADA</span></td><td>HP</td><td>2</td></tr>
+          <tr><td>5</td><td><span class="sym">SIMBOLO</span></td><td>=</td><td>2</td></tr>
+          <tr><td>6</td><td><span class="num">NUMERO</span></td><td>100</td><td>2</td></tr>
+          <tr><td>7</td><td><span class="sym">SIMBOLO</span></td><td>;</td><td>2</td></tr>
+          <tr><td>8</td><td><span class="kw">PALABRA_RESERVADA</span></td><td>MP</td><td>3</td></tr>
+          <tr><td>9</td><td><span class="sym">SIMBOLO</span></td><td>=</td><td>3</td></tr>
+          <tr><td>10</td><td><span class="num">NUMERO</span></td><td>50</td><td>3</td></tr>
+          <tr><td>11</td><td><span class="sym">SIMBOLO</span></td><td>;</td><td>3</td></tr>
+          <tr><td>12</td><td><span class="sym">SIMBOLO</span></td><td>}</td><td>4</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Fase 2: Sintáctico -->
+<section id="sintactico">
+  <div class="phase-header reveal">
+    <span class="phase-num">FASE 02</span>
+    <div class="phase-line"></div>
+  </div>
+  <div class="section-tag">04 — Analizador Sintáctico</div>
+  <h2 class="section-title">Validación de Estructura</h2>
+  <p class="section-desc">
+    Verifica que la secuencia de tokens sigue las reglas gramaticales del lenguaje. Si la estructura no es válida, se reportan errores con la ubicación exacta.
+  </p>
+
+  <div class="vi-grid reveal" style="margin-bottom:1.5rem;">
+    <div class="vi-card">
+      <div class="vi-head valid">Estructura válida</div>
+      <div class="vi-body">
+        <div class="code-block" style="background:transparent;border:none;padding:.4rem 0;margin:0;">
+<span class="kw">personaje</span> <span class="id">Heroe</span> <span class="sym">{</span>
+    <span class="kw">HP</span> <span class="sym">=</span> <span class="num">100</span><span class="sym">;</span>
+<span class="sym">}</span>
+        </div>
+      </div>
+    </div>
+    <div class="vi-card">
+      <div class="vi-head invalid">Estructura inválida</div>
+      <div class="vi-body">
+        <div class="code-block" style="background:transparent;border:none;padding:.4rem 0;margin:0;">
+<span class="kw">personaje</span> <span class="id">Heroe</span>
+    <span class="err-c">// Error: falta llave de apertura {</span>
+    <span class="kw">HP</span> <span class="sym">=</span> <span class="num">100</span><span class="sym">;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card reveal">
+      <div class="card-title" style="margin-bottom:.9rem;">Reglas Gramaticales</div>
+      <div class="feature-list">
+        <div class="feature-item"><span class="fi-dot"></span> Todo bloque abre con <code style="color:var(--accent)">{</code> y cierra con <code style="color:var(--accent)">}</code></div>
+        <div class="feature-item"><span class="fi-dot"></span> Cada propiedad termina obligatoriamente con <code style="color:var(--accent)">;</code></div>
+        <div class="feature-item"><span class="fi-dot"></span> Debe existir un identificador tras la palabra reservada</div>
+        <div class="feature-item"><span class="fi-dot"></span> El valor de cada propiedad debe ser número o cadena</div>
+        <div class="feature-item"><span class="fi-dot"></span> El operador <code style="color:var(--accent)">=</code> es obligatorio en cada asignación</div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <div class="card-title" style="margin-bottom:.9rem;">Árbol Sintáctico (AST)</div>
+      <div class="ast-tree">
+<span class="node-root">Programa</span>
+├── <span class="node-root">personaje</span>
+│   └── <span class="node-id">Heroe</span>
+│       ├── <span class="node-prop">HP = 100</span>
+│       └── <span class="node-prop">MP = 50</span>
+├── <span class="node-root">habilidad</span>
+│   └── <span class="node-id">Golpe</span>
+│       └── <span class="node-prop">daño = 25</span>
+└── <span class="node-root">estado</span>
+    └── <span class="node-id">Quemado</span>
+        └── <span class="node-prop">efecto = "pierde vida"</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Fase 3 semántico -->
+<section id="semantico">
+  <div class="phase-header reveal">
+    <span class="phase-num">FASE 03</span>
+    <div class="phase-line"></div>
+  </div>
+  <div class="section-tag">05 — Analizador Semántico</div>
+  <h2 class="section-title">Validación Lógica</h2>
+  <p class="section-desc">
+    Verifica que el código tiene sentido lógico: identificadores declarados, propiedades válidas para cada entidad y tipos de datos correctos.
+  </p>
+
+  <div class="error-grid reveal">
+    <div class="error-item">
+      <div class="error-code">E01</div>
+      <div>
+        <div class="ei-title">Identificador no declarado</div>
+        <div class="ei-desc">Usar <span class="id">Dragon</span> sin haberlo declarado con <span class="kw">personaje</span></div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-code">E02</div>
+      <div>
+        <div class="ei-title">Identificador duplicado</div>
+        <div class="ei-desc">Declarar <span class="kw">personaje</span> <span class="id">Heroe</span> dos veces en el mismo script</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-code">E03</div>
+      <div>
+        <div class="ei-title">Asignación inválida</div>
+        <div class="ei-desc"><span class="kw">HP</span> <span class="sym">=</span> <span class="str">"texto"</span> — HP espera un valor numérico</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-code">E04</div>
+      <div>
+        <div class="ei-title">Propiedad no válida</div>
+        <div class="ei-desc">Usar <span class="kw">efecto</span> dentro de un bloque <span class="kw">personaje</span> — solo aplica a estados</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-code">E05</div>
+      <div>
+        <div class="ei-title">Tipo incorrecto</div>
+        <div class="ei-desc"><span class="kw">daño</span> <span class="sym">=</span> <span class="str">"fuerte"</span> — daño debe ser un entero</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-code">E06</div>
+      <div>
+        <div class="ei-title">Propiedad duplicada</div>
+        <div class="ei-desc">Declarar <span class="kw">HP</span> dos veces dentro del mismo bloque <span class="id">Heroe</span></div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-code">E07</div>
+      <div>
+        <div class="ei-title">Propiedad fuera de contexto</div>
+        <div class="ei-desc">Colocar <span class="kw">XP</span> dentro de <span class="kw">habilidad</span> — XP pertenece solo a <span class="kw">personaje</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- fase 4 tabla de símbolos -->
+<section id="simbolos">
+  <div class="phase-header reveal">
+    <span class="phase-num">FASE 04</span>
+    <div class="phase-line"></div>
+  </div>
+  <div class="section-tag">06 — Tabla de Símbolos</div>
+  <h2 class="section-title">Registro de Entidades</h2>
+  <p class="section-desc">
+    Estructura central donde el compilador almacena cada entidad declarada: su nombre, categoría y atributos con sus tipos. Se consulta durante todas las fases de análisis.
+  </p>
+
+  <div class="card reveal" style="margin-bottom:1.5rem;">
+    <div class="card-title" style="margin-bottom:.9rem;">Estructura de la Tabla</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Campo</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+        <tbody>
+          <tr><td>Identificador</td><td>Nombre único de la entidad</td><td><span class="id">Heroe</span></td></tr>
+          <tr><td>Categoría</td><td>Tipo de entidad declarada</td><td><span class="kw">personaje</span></td></tr>
+          <tr><td>Atributos</td><td>Propiedades con tipo y valor</td><td>HP=100 (int), MP=50 (int)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="sym-entry">
+      <div class="sym-name">Heroe</div>
+      <div class="sym-cat">personaje</div>
+      <div class="sym-attrs">HP = 100 (int) · MP = 50 (int) · XP = 0 (int)</div>
+    </div>
+    <div class="sym-entry">
+      <div class="sym-name">Golpe</div>
+      <div class="sym-cat">habilidad</div>
+      <div class="sym-attrs">daño = 25 (int)</div>
+    </div>
+    <div class="sym-entry">
+      <div class="sym-name">Quemado</div>
+      <div class="sym-cat">estado</div>
+      <div class="sym-attrs">efecto = "pierde vida" (string)</div>
+    </div>
+    <div class="sym-entry">
+      <div class="sym-name">Mago</div>
+      <div class="sym-cat">personaje</div>
+      <div class="sym-attrs">HP = 70 (int) · MP = 120 (int)</div>
+    </div>
+    <div class="sym-entry">
+      <div class="sym-name">Ralentizado</div>
+      <div class="sym-cat">estado</div>
+      <div class="sym-attrs">efecto = "reduce velocidad" (string)</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Fase 5 Resultado-->
+<section id="resultado">
+  <div class="phase-header reveal">
+    <span class="phase-num">FASE 05</span>
+    <div class="phase-line"></div>
+  </div>
+  <div class="section-tag">07 — Resultado Final</div>
+  <h2 class="section-title">Salidas del Compilador</h2>
+  <p class="section-desc">
+    Una vez procesado el script, el compilador produce cuatro tipos de salida para verificar completamente el estado del código.
+  </p>
+
+  <div class="grid-2" style="margin-bottom:1.5rem;">
+    <div class="card reveal">
+      <div class="card-title">Lista de Tokens</div>
+      <div class="card-body">Secuencia completa de tokens con tipo, valor y número de línea, generada durante el análisis léxico.</div>
+    </div>
+    <div class="card reveal">
+      <div class="card-title">Árbol Sintáctico</div>
+      <div class="card-body">Representación jerárquica de la estructura del programa con sus entidades, bloques y propiedades.</div>
+    </div>
+    <div class="card reveal">
+      <div class="card-title">Tabla de Símbolos</div>
+      <div class="card-body">Registro de todas las entidades declaradas con sus categorías, atributos y tipos de datos.</div>
+    </div>
+    <div class="card reveal">
+      <div class="card-title">Lista de Errores</div>
+      <div class="card-body">Reporte de errores léxicos, sintácticos y semánticos con código, descripción y línea de ocurrencia.</div>
+    </div>
+  </div>
+
+  <div class="output-card reveal">
+    <div class="oc-head">
+      <div class="oc-dot" style="background:var(--red);"></div>
+      <div class="oc-dot" style="background:var(--yellow);"></div>
+      <div class="oc-dot" style="background:var(--green);"></div>
+      <div class="oc-label">compilador_output.txt</div>
+    </div>
+    <div class="oc-body">
+      <div style="color:var(--text-muted);"># ===================================</div>
+      <div style="color:var(--accent);">  RPG Script Compiler — Resultado Final</div>
+      <div style="color:var(--text-muted);">  ===================================</div>
+      <br>
+      <div><span style="color:var(--yellow);">[LEXICO]   </span><span class="ok-c">12 tokens generados sin errores</span></div>
+      <div><span style="color:var(--yellow);">[SINTAXIS] </span><span class="ok-c">Árbol AST construido correctamente</span></div>
+      <div><span style="color:var(--yellow);">[SEMANTICA]</span><span class="ok-c">3 entidades validadas</span></div>
+      <div><span style="color:var(--yellow);">[SIMBOLOS] </span><span class="ok-c">Tabla con 3 entradas registradas</span></div>
+      <br>
+      <div style="color:var(--green); font-weight:700;">Compilacion exitosa. 0 errores.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="generacion">
+  <div class="section-tag">08 — Generación del Código</div>
+  <h2 class="section-title">Generación del Código</h2>
+  <p class="section-desc">
+    Capturas del compilador en funcionamiento. Haz clic en cada imagen para cargar una captura de pantalla.
+  </p>
+
+  <div class="grid-3 reveal">
+    <div class="img-placeholder">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      <span>Clic para cargar imagen</span>
+      <img alt="Captura 1"/>
+    </div>
+    <div class="img-placeholder">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      <span>Clic para cargar imagen</span>
+      <img alt="Captura 2"/>
+    </div>
+    <div class="img-placeholder">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      <span>Clic para cargar imagen</span>
+      <img alt="Captura 3"/>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="repo">
+  <div class="section-tag">09 — Repositorio</div>
+  <h2 class="section-title" style="text-align:center;">Código Fuente</h2>
+  <div class="repo-inner reveal">
+    <h3 style="font-size:1.2rem; margin-bottom:.45rem;">RPG Script Compiler</h3>
+    <p style="color:var(--text-secondary); font-size:.86rem; margin-bottom:1.75rem;">
+      Repositorio con el código fuente completo, ejemplos de scripts RPG y documentación técnica de cada fase del compilador.
+    </p>
+    <a href="https://github.com/Berman-05/proyecto" target="_blank" class="btn-primary">
+      <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+      </svg>
+      Ver en GitHub
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p><span>RPG Script Compiler</span> · Compiladores · Grupo BAM </p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
+
+<!-- END -->
