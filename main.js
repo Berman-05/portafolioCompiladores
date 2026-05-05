@@ -40,19 +40,4 @@ window.addEventListener('scroll', () => {
   });
 });
 
-document.querySelectorAll('.img-placeholder').forEach(box => {
-  box.addEventListener('click', () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = e => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const url = URL.createObjectURL(file);
-      const img = box.querySelector('img');
-      img.src = url;
-      box.classList.add('has-image');
-    };
-    input.click();
-  });
-});
+
